@@ -1,12 +1,10 @@
-// app/page.tsx
-
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import questions from "../data/questions";
 
-export default function Home() {
+export default function Page() {
   const router = useRouter();
   const [answers, setAnswers] = useState<{ [key: number]: string }>({});
 
@@ -25,7 +23,11 @@ export default function Home() {
     if (typeof window !== "undefined") {
       localStorage.setItem("answers", JSON.stringify(answers));
     }
-    router.push("/result");
+    router.push("/result"); // 結果ページへ遷移
+  };
+
+  const navigateBack = () => {
+    router.push("/practice"); // 初期画面 (practice.tsx) に戻る
   };
 
   return (
@@ -48,6 +50,14 @@ export default function Home() {
           解答を提出
         </button>
       </form>
+      <div className="mt-8">
+        <button
+          onClick={navigateBack}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Back to Practice
+        </button>
+      </div>
     </div>
   );
 }
